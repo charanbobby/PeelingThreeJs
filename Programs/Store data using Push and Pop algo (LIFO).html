@@ -57,7 +57,7 @@
                     var dynamicTexture = new THREEx.DynamicTexture(512, 512)
                     dynamicTexture.context.font = "bolder 90px Verdana";
                     dynamicTexture.drawText(message, undefined, 256, 'red');
-                    var material = new THREE.MeshBasicMaterial({
+                    var material = new THREE.MeshPhongMaterial({
                         opacity: 0.1,
                         blending: THREE.NormalBlending,
                         depthTest: true,
@@ -102,7 +102,6 @@
         // Rendering the animation   
 
         var render = function() {
-
             requestAnimationFrame(render);
             console.log(this.options.push1.__proto__);
             var timer = Date.now() * options.camera.speed;
@@ -113,7 +112,6 @@
             camera.updateMatrixWorld();
 	    
             renderer.render(scene, camera);
-
         };
         render();
 	    
