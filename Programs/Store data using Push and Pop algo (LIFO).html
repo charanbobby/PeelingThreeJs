@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Simple Stack in 3D</title>
     <script src="../libs/three.js"></script>
     <script src="../libs/dat.gui.min.js"></script>
-	<script src="../libs/threex.dynamictexture.js"></script>
+    <script src="../libs/threex.dynamictexture.js"></script>
     <style>
         body {
             /* set margin to 0 and overflow to hidden, to go fullscreen */
@@ -13,108 +14,122 @@
         }
     </style>
 </head>
+
 <body>
-<script>
+    <script>
+        var scene = new THREE.Scene();
 
-// Setting the scene
+        var camera = new THREE.PerspectiveCamera(7, window.innerWidth / window.innerHeight, 0.1, 1000);
+        camera.position.z = 200;
+        camera.position.x = 210;
+        camera.position.y = 210;
+        camera.lookAt(scene.position);
+        camera.updateMatrixWorld();
+	    
+	var directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+	directionalLight.position = new THREE.Vector3(100, 10, -50);
+	directionalLight.name = 'directional';
+	scene.add(directionalLight);
 
-var scene = new THREE.Scene();
-
-// Camera Object
-
-var camera = new THREE.PerspectiveCamera(7, window.innerWidth / window.innerHeight, 0.1, 1000);
-camera.position.z = 200;
-camera.position.x = 210;
-camera.position.y = 210;
-camera.lookAt(scene.position);
-camera.updateMatrixWorld();
-
-// Render Object
-
-
-var renderer = new THREE.WebGLRenderer();
-renderer.setSize(window.innerWidth, window.innerHeight);
-document.body.appendChild(renderer.domElement);
-
-// Making the cube
-
-var geometry = new THREE.CubeGeometry(3, 3, 3);
-var obj = [];
-
-
-// Options to be added to the GUI
-var message = 'hi';
-var options = {
-  camera: {
-    speed: 0.0001
-  },  message,
-push1: function(){ 
-    if(message ==''){console.log('now I am null'+message);}
-	else{
-		var dynamicTexture = new THREEx.DynamicTexture(512,512)
-	dynamicTexture.context.font	= "bolder 90px Verdana";
-	dynamicTexture.drawText(message, undefined, 256, 'red');
-	 var material = new THREE.MeshBasicMaterial({
-	  opacity: 0.1,
-	  blending: THREE.NormalBlending, 
-	  depthTest: true, 
-	  map: dynamicTexture.texture
-	});
-		  
-	      var cube = new THREE.Mesh(geometry, material);
-		
-		cube.position.x = 0;
-		cube.position.y = obj.length*3;
-		cube.position.z = 0;
-		obj.push(cube);
-		scene.add(obj[obj.length-1]); 	
-		//console.log('pushed the'+obj.length+'th element');
-		message = '';
-		render();
-		
-}}
-	  , pop: function(){
-	  console.log('popped the'+obj.length+'th element')
-	  //Last In First Out
-	scene.remove(obj[obj.length-1]);
-	obj.pop();
-	;;}
+        var renderer = new THREE.WebGLRenderer();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+	    
+	var planeGeometry = new THREE.PlaneGeometry(400, 400);
+        var planeMaterial = new THREE.MeshPhongMaterial({color: 0xcccccc});
+        var plane = new THREE.Mesh(planeGeometry, planeMaterial);
+        
+	plane.receiveShadow = true;
+	plane.rotation.x = -0.5 * Math.PI;
+        plane.position.x = 0;
+        plane.position.y = -2;
+        plane.position.z = 0;
+	scene.add(plane);
 	
-};
+        var geometry = new THREE.CubeGeometry(3, 3, 3);
+        var obj = [];
 
-// DAT.GUI Related Stuff
+        // Options to be added to the GUI
+        var message = 'hi';
+        var options = {
+            camera: {
+                speed: 0.0001
+            },
+            message,
+            push1: function() {
+                if (message == '') {
+                    console.log('now I am null' + message);
+                } else {
+                    var dynamicTexture = new THREEx.DynamicTexture(512, 512)
+                    dynamicTexture.context.font = "bolder 90px Verdana";
+                    dynamicTexture.drawText(message, undefined, 256, 'red');
+                    var material = new THREE.MeshPhongMaterial({
+                        opacity: 0.1,
+                        blending: THREE.NormalBlending,
+                        depthTest: true,
+                        map: dynamicTexture.texture
+                    });
 
-var gui = new dat.GUI();
+                    var cube = new THREE.Mesh(geometry, material);
 
-var cam = gui.addFolder('Camera');
-cam.add(options.camera, 'speed', 0, 0.0010).listen();
-cam.add(camera.position, 'y', 0, 100).listen();
-cam.open();
+                    cube.position.x = 0;
+                    cube.position.y = obj.length * 3;
+                    cube.position.z = 0;
+                    obj.push(cube);
+                    scene.add(obj[obj.length - 1]);
+                    //console.log('pushed the'+obj.length+'th element');
+                    message = '';
+                    render();
 
-gui.add(options, 'message');
-gui.add(options, 'push1');
-gui.add(options, 'pop');
+                }
+            },
+            pop: function() {
+                console.log('popped the' + obj.length + 'th element')
+                //Last In First Out
+                scene.remove(obj[obj.length - 1]);
+                obj.pop();;;
+            }
 
-// Rendering the animation   
+        };
 
-var render = function() {
+        // DAT.GUI Related Stuff
 
-  requestAnimationFrame(render);
-	console.log(this.options.push1.__proto__);
-  var timer = Date.now() * options.camera.speed;
-  message = options.message;
-  camera.position.x = Math.cos(timer) * 100;
-  camera.position.z = Math.sin(timer) * 100;
-  camera.lookAt(scene.position); 
-  camera.updateMatrixWorld();
+        var gui = new dat.GUI();
 
-  renderer.render(scene, camera);
+        var cam = gui.addFolder('Camera');
+        cam.add(options.camera, 'speed', 0, 0.0010).listen();
+        cam.add(camera.position, 'y', 0, 100).listen();
+        cam.open();
 
-};
-render();
+        gui.add(options, 'message');
+        gui.add(options, 'push1');
+        gui.add(options, 'pop');
 
-</script>
+        // Rendering the animation   
+
+        var render = function() {
+            requestAnimationFrame(render);
+            console.log(this.options.push1.__proto__);
+            var timer = Date.now() * options.camera.speed;
+            message = options.message;
+            camera.position.x = Math.cos(timer) * 100;
+            camera.position.z = Math.sin(timer) * 100;
+            camera.lookAt(scene.position);
+            camera.updateMatrixWorld();
+	    
+            renderer.render(scene, camera);
+        };
+        render();
+	    
+	function handleResize() {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+    	}
+	window.addEventListener('resize', handleResize, false);
+    </script>
 
 
 </body>
+
 </html>
