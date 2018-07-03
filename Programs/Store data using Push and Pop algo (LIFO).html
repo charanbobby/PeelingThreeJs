@@ -36,7 +36,7 @@
         document.body.appendChild(renderer.domElement);
 	    
 	var planeGeometry = new THREE.PlaneGeometry(400, 400);
-        var planeMaterial = new THREE.MeshPhongMaterial({color: 0xcccccc});
+        var planeMaterial = new THREE.MeshBasicMaterial({color: 0xcccccc});
         var plane = new THREE.Mesh(planeGeometry, planeMaterial);
         
 	plane.receiveShadow = true;
