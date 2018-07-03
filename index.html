@@ -1,23 +1,75 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en" class="no-js">
 <head>
-	<title>Hello 3D World</title>
-<style>
-        body {
-            /* set margin to 0 and overflow to hidden, to go fullscreen */
-            margin: 0;
-            overflow: hidden;
-        }
-    </style>
-	
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="canonical" href="https://html5-templates.com/" />
+    <title>charanbobby-PeelingThreeJS Homepage</title>
+    <meta name="description" content="A brief page description">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>
+
+    <script src="libs/script.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#fullpage').fullpage({
+              sectionsColor: ['#1bbc9b', '#4BBFC3', '#7BAABE', 'whitesmoke', '#ccddff'],
+              anchors: ['firstPage', 'secondPage', '3rdPage', '4thpage', 'lastPage'],
+              menu: '#menu',
+            });
+        });
+    </script>
 </head>
+
 <body>
 
 
-<<<<<<< HEAD
-<a href = "Programs/Store data using Push and Pop algo (LIFO).html">First 3D Program</a>
-=======
+<ul id="menu">
+    <li data-menuanchor="firstPage" class="active"><a href="#firstPage">Title</a></li>
+    <li data-menuanchor="secondPage"><a href="#secondPage">Why the title?</a></li>
+    <li data-menuanchor="3rdPage"><a href="#3rdPage">Programs</a></li>
+</ul>
 
->>>>>>> 0b7b3356cc4468c6cbf0136ceb06f1dadbed2394
+<div id="fullpage">
+    <div class="section " id="section0">
+        <h1>charanbobby-PeelingThreeJS Homepage</h1>
+        <p>Scroll Down To Change Slide</p>
+        <p class="introimg">&darr;&#9636;&darr;</p>
+    </div>
+    <div class="section active" id="section1">
+        <div class="slide" id="slide1">
+            <div class="intro">
+                <h1>Why Peeling?</h1>
+				</br>
+                <p>"Peeling” the word is best associated with Bananas and Oranges (and Potatoes too). I would like to argue that Banana (in a minion voice) is the best fruit in the world. It is the most inexpensive fruit, most accessible to everyone almost every day. It is called Poor man's fruit. </p>
+				</br>
+				<p>Perhaps the silliest of the reasons I would call it is the best fruit is because of its convenience. You find a banana; you pick it, peel it and start eating it right away. Easy! You would probably say “Hey! What about Apple?” The thing with Apple is, you actually need to first find clean water later wash your hands then the fruit and then (if you are as paranoid as I am), scrape the fruit for candle wax and finally we eat it. </p>
+				</br>
+				<p>To answer precisely, I would like to learn the technologies in an inexpensive way in the shortest time possible. I am trying to get to the fruit (understand the full capabilities of a technology) by not reading encyclopedia sized text books but by reading others codes and having application as the key. I am about to start of journey to improve my technical capabilities by trying to code some applications. The series of technologies will go by the name Peeling </p>
+            </div>
+        </div>
+        <div class="slide active" id="slide2">
+            <h1>Why ThreeJs?</h1>
+			</br>
+			<p>Because it is beautiful! It has the first power of delivering captivating 3D models and animations. ThreeJs also can do this in a programmatically manner.</p>
+        </div>
+
+
+    </div>
+    <div class="section" id="section2">
+        <div class="intro">
+            <U><h1>Take me to awesome 3D examples</h1></U>
+			</br>
+            <p>Here you go</p>
+			</br>
+			<ul>The simple application allows user to add using push1 button data and push onto a cube. The pop will delete the message and cube. <a href = "Programs/Store data using Push and Pop algo (LIFO).html">Click Here</a></ul>
+			
+        </div>
+    </div>
+</div>
+
 </body>
+
 </html>
