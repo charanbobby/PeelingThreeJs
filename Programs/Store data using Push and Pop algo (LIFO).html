@@ -25,6 +25,11 @@
         camera.position.y = 210;
         camera.lookAt(scene.position);
         camera.updateMatrixWorld();
+	    
+	var directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+	directionalLight.position = new THREE.Vector3(100, 10, -50);
+	directionalLight.name = 'directional';
+	scene.add(directionalLight);
 
         var renderer = new THREE.WebGLRenderer();
         renderer.setSize(window.innerWidth, window.innerHeight);
